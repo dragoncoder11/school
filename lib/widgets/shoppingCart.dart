@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school/cubit/add_product_cubit.dart';
+import 'package:school/models/product_model.dart';
 import 'package:school/style/textStyle.dart';
 import 'package:school/views/homePageView.dart';
+
+import 'add_to_cart_item.dart';
 
 class shoppingCart extends StatefulWidget {
   const shoppingCart({
@@ -64,10 +67,7 @@ class _shoppingCartState extends State<shoppingCart> {
                           /* for (var x in purchases) {
                                   return purchases[index];
                                 } */
-                          return Container(child: Column(children: [
-                            Image.network(cubit.products[index].image,height: 100,width: 100,),
-                            Text(cubit.products[index].name),
-                          ],),);
+                          return AddToCartItem(productModel: cubit.products[index]);
                         }),
               );
             },
@@ -77,3 +77,4 @@ class _shoppingCartState extends State<shoppingCart> {
     );
   }
 }
+
