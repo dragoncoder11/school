@@ -6,9 +6,15 @@ import 'package:school/models/product_model.dart';
 import '../style/textStyle.dart';
 import '../views/homePageView.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.productModel});
 final ProductModel productModel;
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -23,13 +29,13 @@ final ProductModel productModel;
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset(
-                productModel.image,
+                widget.productModel.image,
                 width: 100,
                 height: 100,
               ),
             ),
              Text(
-              productModel.name,
+              widget.productModel.name,
               style: Styles.style24,
             ),
             Row(
@@ -40,7 +46,7 @@ final ProductModel productModel;
                   child: Row(
                     children: [
                       Text(
-                        "${productModel.price} EGP",
+                        "${widget.productModel.price} EGP",
                         style: Styles.style24,
                       ),
                     ],
@@ -77,11 +83,14 @@ final ProductModel productModel;
                         ),
                       ),
                     )); */
-                    BlocProvider.of<AddProductCubit>(context).addOrRemoveProduct(productModel: productModel);
+                    setState(() {
+                      
+                    });
+                    BlocProvider.of<AddProductCubit>(context).addOrRemoveProduct(productModel: widget.productModel);
                   },
                   icon:  Icon(
                     size: 25,
-                  BlocProvider.of<AddProductCubit>(context).products.contains(productModel) ?Icons.check: Icons.add,
+                  BlocProvider.of<AddProductCubit>(context).products.contains(widget.productModel) ?Icons.check: Icons.add,
                   ),
                 ),
               ],
