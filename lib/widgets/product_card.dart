@@ -28,10 +28,14 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                widget.productModel.image,
-                width: 100,
-                height: 100,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  widget.productModel.image,
+                  width: 100,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
              Text(
@@ -58,31 +62,7 @@ class _ProductCardState extends State<ProductCard> {
                       backgroundColor: MaterialStatePropertyAll(
                           Color.fromARGB(255, 117, 112, 210))),
                   onPressed: () {
-             /*        purchases.add(Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                height: 60,
-                               productModel.image,
-                              ),
-                               Text(
-                                productModel.name,
-                                style: Styles.style24,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )); */
+           
                     setState(() {
                       
                     });
