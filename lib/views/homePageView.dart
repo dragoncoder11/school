@@ -22,11 +22,11 @@ class homePageView extends StatefulWidget {
 
 class _homePageViewState extends State<homePageView> {
   List<ProductModel> products = [
-    ProductModel(image: 'assets/orangeJuice.jpg', name: 'orange juice', price: 24),
-    ProductModel(image: 'assets/health.jpg', name: 'health', price: 22),
-        ProductModel(image: 'assets/s1.jpg', name: 'hhjfh', price: 20),
-    ProductModel(image: 'assets/s2.jpg', name: 'kofta', price: 10),
-    ProductModel(image: 'assets/sports.jpg', name: 'sports', price: 7),
+    ProductModel(image: 'assets/orangeJuice.jpg', name: 'orange juice', price: 24,count: 1),
+    ProductModel(image: 'assets/health.jpg', name: 'health', price: 22,count: 1),
+        ProductModel(image: 'assets/s1.jpg', name: 'hhjfh', price: 20,count: 1),
+    ProductModel(image: 'assets/s2.jpg', name: 'kofta', price: 10,count: 1),
+    ProductModel(image: 'assets/sports.jpg', name: 'sports', price: 7,count: 1),
 
   ];
   int currentIndex = 0;

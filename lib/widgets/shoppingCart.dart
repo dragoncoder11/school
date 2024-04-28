@@ -9,24 +9,24 @@ import 'add_to_cart_item.dart';
 
 class shoppingCart extends StatefulWidget {
   const shoppingCart({
-    super.key,
+    super.key, 
   });
-
   @override
   State<shoppingCart> createState() => _shoppingCartState();
 }
-
 class _shoppingCartState extends State<shoppingCart> {
+  double calculateTotalPrice() {
+    double totalPrice = 0.0;
+    var cubit = BlocProvider.of<AddProductCubit>(context);
+    for (var product in cubit.products) {
+      totalPrice += product.price * product.count;
+    }
+    return totalPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<AddProductCubit>(context);
-    double calculateTotalPrice() {
-      double totalPrice = 0.0;
-      for (var product in cubit.products) {
-        totalPrice += product.price;
-      }
-      return totalPrice;
-    }
 
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
@@ -73,15 +73,16 @@ class _shoppingCartState extends State<shoppingCart> {
                                 ),
                               )
                             : ListView.builder(
-                                itemCount: // (cubit.products.isEmpty) ? 1 : purchases.length,
-                                    cubit.products.length,
+                                itemCount: cubit.products.length,
                                 itemBuilder: (context, index) {
-                                  /* for (var x in purchases) {
-                                              return purchases[index];
-                                            } */
                                   return AddToCartItem(
-                                      productModel: cubit.products[index]);
-                                }),
+                                    productModel: cubit.products[index],
+                                    onChanged: () {
+                                      setState(() {});
+                                    },
+                                  );
+                                },
+                              ),
                       ),
                     ],
                   ),
@@ -90,13 +91,13 @@ class _shoppingCartState extends State<shoppingCart> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'total : ${calculateTotalPrice().toString()}:00 EGP',
+                      'total : ${calculateTotalPrice().toStringAsFixed(2)} EGP',
                       style: Styles.style24,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             height: 60,
@@ -143,7 +144,9 @@ class _shoppingCartState extends State<shoppingCart> {
                 ElevatedButton(
                   onPressed: () {},
                   style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.blue),fixedSize: MaterialStatePropertyAll(Size(180, 50))),
+                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                    fixedSize: MaterialStatePropertyAll(Size(180, 50)),
+                  ),
                   child: const Text(
                     'Button',
                     style: Styles.style22,
