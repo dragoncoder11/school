@@ -8,7 +8,7 @@ import '../views/homePageView.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.productModel});
-final ProductModel productModel;
+final ProductsModel productModel;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -30,8 +30,8 @@ class _ProductCardState extends State<ProductCard> {
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  widget.productModel.image,
+                child: Image.network(
+                  'https${widget.productModel.name??''}',
                   width: 100,
                   height: 200,
                   fit: BoxFit.cover,
@@ -39,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
              Text(
-              widget.productModel.name,
+              widget.productModel.name??'',
               style: Styles.style24,
             ),
             Row(
@@ -50,7 +50,7 @@ class _ProductCardState extends State<ProductCard> {
                   child: Row(
                     children: [
                       Text(
-                        "${widget.productModel.price} EGP",
+                        "${widget.productModel.price??''} EGP",
                         style: Styles.style24,
                       ),
                     ],

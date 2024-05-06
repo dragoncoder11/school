@@ -12,7 +12,7 @@ class AddToCartItem extends StatefulWidget {
     required this.productModel, required this.onChanged,
   });
 
-  final ProductModel productModel;
+  final ProductsModel productModel;
   final Function onChanged;
 
   @override
@@ -21,20 +21,21 @@ class AddToCartItem extends StatefulWidget {
 
 class _AddToCartItemState extends State<AddToCartItem> {
  void _decreaseCount() {
-    setState(() {
-      if (widget.productModel.count > 1) {
-        widget.productModel.count--;
-      }
-      widget.onChanged();
-    });
-  }
+  setState(() {
+    if (widget.productModel.amount != null && widget.productModel.amount! > 1) {
+      widget.productModel.amount = widget.productModel.amount! - 1;
+    }
+    widget.onChanged();
+  });
+}
 
   void _increaseCount() {
     setState(() {
-      widget.productModel.count++;
+      if (widget.productModel.amount != null ) {
+      widget.productModel.amount = widget.productModel.amount! +1;
       widget.onChanged();
-    });
-  }
+  };
+  });}
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -51,8 +52,8 @@ class _AddToCartItemState extends State<AddToCartItem> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    widget.productModel.image,
+                  child: Image.network(
+                    widget.productModel.imageURL??'',
                     width: 60,
                     height: 100,
                     fit: BoxFit.cover,
@@ -62,48 +63,51 @@ class _AddToCartItemState extends State<AddToCartItem> {
                   width: 20,
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.productModel.name,
-                        style: Styles.style22
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        "${widget.productModel.price*widget.productModel.count} EGP",
-                        style: Styles.style22
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                       Row(
-                        children: [
-                          CustomCounterCircleAvatar(
-                            onPressed: _decreaseCount,
-                            icon: Icons.remove,
-                          ),
-                         const SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            '${widget.productModel.count}',
-                          ),
-                         const SizedBox(
-                            width: 15,
-                          ),
-                          CustomCounterCircleAvatar(
-                          onPressed: _increaseCount,
-                            icon: Icons.add,
-                          ),
-                        ],
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          widget.productModel.name!,
+                          style: Styles.style22
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "${widget.productModel.price!*widget.productModel.amount!} EGP",
+                          style: Styles.style22
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                         Row(
+                          children: [
+                            CustomCounterCircleAvatar(
+                              onPressed: _decreaseCount,
+                              icon: Icons.remove,
+                            ),
+                           const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              '${widget.productModel.amount}',
+                            ),
+                           const SizedBox(
+                              width: 15,
+                            ),
+                            CustomCounterCircleAvatar(
+                            onPressed: _increaseCount,
+                              icon: Icons.add,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

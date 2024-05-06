@@ -19,7 +19,7 @@ class _shoppingCartState extends State<shoppingCart> {
     double totalPrice = 0.0;
     var cubit = BlocProvider.of<AddProductCubit>(context);
     for (var product in cubit.products) {
-      totalPrice += product.price * product.count;
+      totalPrice += product.price! * product.amount!;
     }
     return totalPrice;
   }

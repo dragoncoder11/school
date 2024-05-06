@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:school/models/categoryModels.dart';
+import 'package:school/models/product_model.dart';
 import 'package:school/style/textStyle.dart';
 
 class categoryCard extends StatelessWidget {
@@ -12,9 +12,10 @@ class categoryCard extends StatelessWidget {
   });
   final VoidCallback onPress;
   final Color coolor;
-  final categoryModel category;
+  final HomeModel category;
   @override
   Widget build(BuildContext context) {
+    print('category name:${category.name}');
     return GestureDetector(
       onTap: onPress,
       child: Padding(
@@ -26,20 +27,11 @@ class categoryCard extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                children: [
-                  Image(
-                    height: 80,
-                    width: 80,
-                    image: AssetImage(category.icon),
-                  ),
-                  Text(
-                    category.name,
-                    style: Styles.style25white,
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+              child: Text(
+                  category.name!,
+                  style: Styles.style25white,
+                ),
             ),
           ),
         ),

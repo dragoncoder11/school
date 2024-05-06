@@ -1,13 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:school/models/product_model.dart';
+import 'package:school/repos/home_repo.dart';
 
 part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
-  AddProductCubit() : super(AddProductInitial());
-  final List<ProductModel> products=[];
-  addOrRemoveProduct({required ProductModel productModel}){
+  AddProductCubit(this.homeRepo) : super(AddProductInitial());
+  final HomeRepo homeRepo;
+  final List<ProductsModel> products=[];
+  addOrRemoveProduct({required ProductsModel productModel}){
     final isSelected=products.contains(productModel);
     if(isSelected){
       products.remove(productModel);
@@ -16,4 +18,22 @@ class AddProductCubit extends Cubit<AddProductState> {
     }
     emit(AddProductloaded());
   }
+ /*  fetchProducts()async{
+    emit(GetProductsLoading());
+  var result = await homeRepo.fetchProducts();
+  result.fold(
+    (failure) => emit(FailedToGetProducts(errMessage: failure.toString())),
+    (products) => emit(GetProductsSuccess(products: products)),
+  );
+  } */
+ /* fetchProducts() async {
+  
+  emit(GetProductsLoading()); // Emit the loading state before fetching categories
+
+  var result = await homeRepo.fetchProducts();
+  result.fold(
+    (failure) => emit(FailedToGetProducts(errMessage: failure.toString())),
+    (products) => emit(GetProductsSuccess(products: products)),
+  );
+} */
 }
